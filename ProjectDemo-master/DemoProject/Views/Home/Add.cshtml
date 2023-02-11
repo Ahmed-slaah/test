@@ -1,0 +1,53 @@
+﻿@model DemoProject.Core.DTOs.AddVacancyDTO
+@{
+}
+
+<div class="align-content-center">
+    <h1>Add new Vacancy</h1>
+</div>
+
+<form method="post" action="Add">
+    <div class="form-group">
+        <label for="Name">Name</label>
+        <input type="text" class="form-control" id="Name" placeholder="Name" asp-for="Name">
+    </div>
+
+    <div class="form-group">
+        <label for="Resposibilities">Resposibilities</label>
+        <input type="text" class="form-control" id="Resposibilities" placeholder="Resposibilities" asp-for="Resposibilities">
+    </div>
+
+    <div class="form-group">
+        <label for="Descriptions">Descriptions</label>
+        <input type="text" class="form-control" id="Descriptions" placeholder="Descriptions" asp-for="Descriptions">
+    </div>
+
+    <div class="form-group">
+        <label for="UserName">Skills</label>
+        <input type="text" class="form-control" id="Skills" placeholder="Skills" asp-for="Skills">
+    </div>
+
+    <div class="form-group">
+        <label for="UserName">Max</label>
+        <input type="number" class="form-control" id="UserName" placeholder="User Name" asp-for="Max">
+    </div>
+
+    <div class="form-group">
+        <label for="UserName">OpenedTo</label>
+        <input type="date" class="form-control" id="OpenedTo" placeholder="User Name" asp-for="OpenedTo">
+    </div>
+
+
+   
+    <div class="form-group">
+        <label for="categories" >Categories</label>
+        <select class="form-select"  asp-for="CategoryId">
+            <option >Select Category please</option>
+            @foreach (var category in Model.Categories)
+            {
+                <option value="@category.CategoryId">@category.Name</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

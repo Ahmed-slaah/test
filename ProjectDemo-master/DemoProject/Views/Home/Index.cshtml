@@ -1,0 +1,82 @@
+﻿@model DemoProject.Core.DTOs.GetVacanciesListDTO
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+
+
+    @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+    {
+        <text>
+            Subject
+        </text>
+        @Html.TextBox("search")
+        <input 
+            type="submit"
+            name="submit"
+            value="search"
+            />
+    }
+
+
+    <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Category</th>
+      <th scope="col">OpenedTo</th>
+      <td colspan="3"></td>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr>
+        <td colspan="4">
+       @if (Model.count ==0)
+      {
+           <h3> There is no new opening positions for now...</h3>
+      }
+        </td>
+    </tr>
+ @foreach(var item in Model.VacanciesList)
+ {
+     <tr>
+      <td scope="row">@item.Name</td>
+      <td scope="row">@item.Descriptions</td>
+      <td scope="row">@item.Categories.Name</td>
+      <td scope="row">@item.OpenedTo</td>
+      <td colspan="3">
+ @if (Model.roleId != null)
+{
+      <a href="@Url.Action("Delete","Home",new { Id=item.Id})" class="btn btn-sm btn-outline-danger" >Delete</a>
+      @if (Model.roleId == "1")/*admin role*/
+      {
+          <a href="@Url.Action("update","Home",new { Id=item.Id})" class="btn btn-sm btn-outline-warning" >Edit</a>
+      }
+}
+      </td>
+    </tr>
+ }
+    <tr>
+        <td colspan="3">
+       @if (Model.roleId == "1")/*admin role*/
+      {
+           <a href="@Url.Action("Add","Home")" class="btn btn-sm btn-outline-success">Add new One</a>
+           <a href="@Url.Action("DeletedRequests","Home")" class="btn btn-sm btn-outline-secondary">Deleted Requests</a>
+      }
+        </td>
+    </tr>
+  
+</table>
+<div class="align-content-center">
+   
+    @for(int b = 1; b <= (Model.count / Model.pageSize )+1; b++)
+            {
+                <a href="@Url.Action("Index","Home",new { page= b})" class="btn btn-sm btn-outline-dark">@b</a>
+            }
+</div>
+</div>
